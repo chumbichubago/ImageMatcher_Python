@@ -11,8 +11,9 @@ from matplotlib import pyplot as plt
 
 debug = 0 #0 off, 1 on
 
-img1 = cv2.imread('testimg\856-0656-B_VisProAdventure2.png',0)          # queryImage
-img2 = cv2.imread('856-0656-B_VisProAdventure1.png',0) # trainImage
+img1 = cv2.imread('Z:\Python\WebScrapingEnv\856-0753-A_RandoResponder500FlashlightCaseof481.png',0) #image in question
+img2 = cv2.imread('Z:\Python\WebScrapingEnv\856-0656-B_VisProAdventure1.png',0) #condidate image to match with
+
 
 if debug:
     print("--Debug--")
