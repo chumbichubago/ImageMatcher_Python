@@ -8,23 +8,10 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-
 debug = 1 #0 off, 1 on
 
-def setimg1(imgpath):
-    global img1
-    img1 = cv2.imread(imgpath,0) #image in question
-
-def setimg2(imgpath):
-    global img1
-    img1 = cv2.imread(imgpath,0) #image in question
-
-if debug:
-    print("--Debug--")
-    print(img1.shape)
-    print(img2.shape)
-    print(img1.shape[0]/img2.shape[0])
-
+def setimg(imgpath):
+    return cv2.imread(imgpath,0) 
 
 def findLargerImg(image1,image2):
     s1 = image1.shape
@@ -124,9 +111,10 @@ def equalizeImageSizes(image1,image2):
         print("scaling down img{} by {}%".format(thelargerimg,scaledownby*100))
     return (image1,image2)
 
-img1,img2 = equalizeImageSizes(img1,img2)
-
 if __name__=='__main__':
+    img1 = setimg("Z:\Python\WebScrapingEnv\856-0744-A_GobeResponder8003.png")
+    img2 = setimg("Z:\Python\WebScrapingEnv\856-0743-A_GoBeResponder5003.png")
+    img1,img2 = equalizeImageSizes(img1,img2)
     if matchconfidence(img1,img2):
         print("Image are matching")
     else:
