@@ -11,9 +11,13 @@ from matplotlib import pyplot as plt
 
 debug = 1 #0 off, 1 on
 
-img1 = cv2.imread('Z:\Python\WebScrapingEnv\856-0753-A_RandoResponder500FlashlightCaseof481.png',0) #image in question
-img2 = cv2.imread('Z:\Python\WebScrapingEnv\856-0751-A_RandoResponder500FlashlightCaseof121.png',0) #candidate image to match with
+def setimg1(imgpath):
+    global img1
+    img1 = cv2.imread(imgpath,0) #image in question
 
+def setimg2(imgpath):
+    global img1
+    img1 = cv2.imread(imgpath,0) #image in question
 
 if debug:
     print("--Debug--")
