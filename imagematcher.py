@@ -9,10 +9,10 @@ import cv2
 from matplotlib import pyplot as plt
 
 
-debug = 0 #0 off, 1 on
+debug = 1 #0 off, 1 on
 
 img1 = cv2.imread('Z:\Python\WebScrapingEnv\856-0753-A_RandoResponder500FlashlightCaseof481.png',0) #image in question
-img2 = cv2.imread('Z:\Python\WebScrapingEnv\856-0656-B_VisProAdventure1.png',0) #condidate image to match with
+img2 = cv2.imread('Z:\Python\WebScrapingEnv\856-0751-A_RandoResponder500FlashlightCaseof121.png',0) #candidate image to match with
 
 
 if debug:
@@ -96,28 +96,31 @@ def matchconfidence(img1,img2):
     else:
         return 0
     
+def equalizeImageSizes(image1,image2):
+    thelargerimg = findLargerImg(image1,image2)
+    if debug:
+        print("--Debug--")
+        print("the larger image is img{}".format(thelargerimg))
 
-thelargerimg = findLargerImg(img1,img2)
-if debug:
-    print("--Debug--")
-    print("the larger image is img{}".format(thelargerimg))
+    if thelargerimg>1:
+        #second image is larger
+        scaledownby = round((image1.shape[0]/image2.shape[0])*100)/100
+        imgheight = int(image2.shape[0]*(scaledownby))
+        imgwidth = int(image2.shape[1]*(scaledownby))
+        image2 = cv2.resize(image2,(imgwidth,imgheight))
+        
+    else:
+        #first image is larger
+        scaledownby = round((image2.shape[0]/image1.shape[0])*100)/100
+        imgheight = int(image1.shape[0]*(scaledownby))
+        imgwidth = int(image1.shape[1]*(scaledownby))
+        img1 = cv2.resize(image1,(imgwidth,imgheight))
 
-if thelargerimg>1:
-    #second image is larger
-    scaledownby = round((img1.shape[0]/img2.shape[0])*100)/100
-    imgheight = int(img2.shape[0]*(scaledownby))
-    imgwidth = int(img2.shape[1]*(scaledownby))
-    img2 = cv2.resize(img2,(imgwidth,imgheight))
-    
-else:
-    #first image is larger
-    scaledownby = round((img2.shape[0]/img1.shape[0])*100)/100
-    imgheight = int(img1.shape[0]*(scaledownby))
-    imgwidth = int(img1.shape[1]*(scaledownby))
-    img1 = cv2.resize(img1,(imgwidth,imgheight))
+    if debug:
+        print("scaling down img{} by {}%".format(thelargerimg,scaledownby*100))
+    return (image1,image2)
 
-if debug:
-    print("scaling down img{} by {}%".format(thelargerimg,scaledownby*100))
+img1,img2 = equalizeImageSizes(img1,img2)
 
 if __name__=='__main__':
     if matchconfidence(img1,img2):
